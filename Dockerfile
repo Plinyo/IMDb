@@ -3,7 +3,7 @@ FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
 WORKDIR /source
 
 # copy csproj and restore as distinct layers
-COPY IMDb.csproj ./
+COPY . .
 RUN dotnet restore IMDb.csproj
 RUN dotnet build IMDb.csproj -c Release
 RUN dotnet publish IMDb.csproj -c release -o /app
