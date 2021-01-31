@@ -15,6 +15,8 @@ namespace IMDb.Models
         public string Senha { get; set; }
         public DateTime DataNascimento { get; set; }
         public char Sexo { get; set; }
+
+        [Required(ErrorMessage = "Esse campo é obrigatório, ao inserir um novo, valor deve ser 'true'")]
         public bool Ativo { get; set; }
     }
 }

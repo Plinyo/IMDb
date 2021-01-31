@@ -1,4 +1,5 @@
 ﻿using System;
+using IMDb.Models;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace IMDb.Migrations
