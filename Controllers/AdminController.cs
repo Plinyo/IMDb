@@ -16,39 +16,13 @@ namespace IMDb.Controllers
         {
             _adminRepository = adminRepository;
         }
-        public bool IsAdministrator()
-        {
-            var username = ParseToken();
-            var user = _userRepository.GetByName(username);
-            if (user.Ativo == false)
-                return false;
-
-            return _adminRepository.ValidarAdminitrador(user.Id);
-        }
-        private string ParseToken()
-        {
-            var jwtHandler = new JwtSecurityTokenHandler();
-            string jwtInput = Request.Headers["Authorization"];
-            jwtInput = jwtInput.Split(" ")[1];
-
-            var readableToken = jwtHandler.CanReadToken(jwtInput);
-            string username = string.Empty;
-            if (readableToken)
-            {
-                var token = jwtHandler.ReadJwtToken(jwtInput);
-                var claims = token.Claims;
-                username = claims.Where(claim => claim.Type == "unique_name").FirstOrDefault().Value;
-
-            }
-            return username;
-        }
 
         [HttpGet]
         [Route("GetAll")]
         [Authorize]
         public ActionResult GetAllAdmin()
         {
-            if (IsAdministrator() == false)
+            if (_adminRepository.IsAdministrator(Request.Headers["Authorization"]) == false)
             {
                 return BadRequest("Administrador já cadastrado no sistema");
             }
@@ -60,7 +34,7 @@ namespace IMDb.Controllers
         [Route("Insert")]
         public ActionResult InsertAdministrador([FromBody] Administrador obj)
         {
-            if (IsAdministrator() == false)
+            if (_adminRepository.IsAdministrator(Request.Headers["Authorization"]) == false)
             {
                 return BadRequest("Administrador já cadastrado no sistema");
             }
@@ -74,7 +48,7 @@ namespace IMDb.Controllers
         [Route("Delete")]
         public ActionResult DeleteAdministrador(int adminId)
         {
-            if (IsAdministrator() == false)
+            if (_adminRepository.IsAdministrator(Request.Headers["Authorization"]) == false)
             {
                 return BadRequest("Apenas administradores podem remover outros administradores no sistema");
             }
@@ -89,7 +63,7 @@ namespace IMDb.Controllers
         [Authorize]
         public ActionResult GetAllUsersAtivos([FromQuery(Name = "page")] int page = 1, [FromQuery(Name = "qtdeReg")] int qtdeReg = 10)
         {
-            if (IsAdministrator() == false)
+            if (_adminRepository.IsAdministrator(Request.Headers["Authorization"]) == false)
             {
                 return BadRequest("Somente o administrador pode visualizar essa informação");
             }
