@@ -47,6 +47,11 @@ namespace IMDb.Migrations
             table: "Administrador",
             columns: new[] { "Ativo", "UserId" },
             values: new object[] { true, 1 });
+
+            migrationBuilder.InsertData(
+            table: "Administrador",
+            columns: new[] { "Ativo", "UserId" },
+            values: new object[] { true, 4 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
