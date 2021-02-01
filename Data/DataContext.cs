@@ -12,5 +12,6 @@ namespace IMDb.Data
         public DbSet<Administrador> Administrador { get; set; }
         public DbSet<Filmes> Filmes { get; set; }
         public DbSet<Usuario> Usuario { get; set; }
+        public DbSet<Sistema> Sistema { get; set; }
     }
 }

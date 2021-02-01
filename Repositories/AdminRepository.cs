@@ -18,15 +18,25 @@ namespace IMDb.Repositories
 
         public bool ValidarAdminitrador(int id)
         {
-            return _context.Administrador.Where(x => x.Usuario.Id == id && x.Ativo == true).Any();
+            return _context.Administrador.Where(x => x.UserId == id && x.Ativo == true).Any();
         }
 
         public List<Administrador> GetAll()
         {
             var lst = new List<Administrador>();
-            lst.Add(new Administrador { Id = 1, Ativo = true, Usuario = new Usuario { Id = 1 } });
+            lst.Add(new Administrador { Id = 1, Ativo = true, UserId = 1 });
             return lst;
         }
+        // public IEnumerable<Usuario> GetAllAdmin(int pagina = 1, int qtdeReg = 10)
+        // {
+        //     var listAdmin = _context.Administrador.ToList();
+        //     var list = _context.Usuario.ToList<Usuario>().Any(x => x.Id == listAdmin.);
+        //     // if (qtdeReg > 10)
+        //     //     qtdeReg = 10;
+
+        //     // var totalPaginas = (int)Math.Ceiling(list.Count() / Convert.ToDecimal(qtdeReg));
+        //      return list.OrderBy(x => x.NomeUsuario).Skip(qtdeReg * (pagina - 1)).Take(qtdeReg);
+        // }
         public Administrador GetById(int id)
         {
             return _context.Administrador.Where(x => x.Id == id).FirstOrDefault();

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using IMDb.Data;
@@ -56,9 +57,15 @@ namespace IMDb.Repositories
         //     });
         //     return lst.OrderByDescending(x => x.Avaliacao).ToList(); //.OrderBy(y => y.NomeFilme).ToList();
         // }
-        public List<Filmes> GetAll()
+        public IEnumerable<Filmes> GetAll(int pagina = 1, int qtdeReg = 10)
         {
-            return _context.Filmes.ToList<Filmes>();
+            var list = _context.Filmes.ToList<Filmes>();            
+
+            if (qtdeReg > 10)
+                qtdeReg = 10;
+
+            var totalPaginas = (int)Math.Ceiling(list.Count() / Convert.ToDecimal(qtdeReg));
+            return list.OrderBy(x => x.Avaliacao).ThenBy(x => x.NomeFilme).Skip(qtdeReg * (pagina - 1)).Take(qtdeReg);
         }
         public Filmes GetByName(string movieName)
         {

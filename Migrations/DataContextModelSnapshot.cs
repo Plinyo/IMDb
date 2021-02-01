@@ -29,12 +29,10 @@ namespace IMDb.Migrations
                     b.Property<bool>("Ativo")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("UsuarioId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UsuarioId");
 
                     b.ToTable("Administrador");
                 });
@@ -71,6 +69,21 @@ namespace IMDb.Migrations
                     b.ToTable("Filmes");
                 });
 
+            modelBuilder.Entity("IMDb.Models.Sistema", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("SecretKeyJwt")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Sistema");
+                });
+
             modelBuilder.Entity("IMDb.Models.Usuario", b =>
                 {
                     b.Property<int>("Id")
@@ -99,15 +112,6 @@ namespace IMDb.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Usuario");
-                });
-
-            modelBuilder.Entity("IMDb.Models.Administrador", b =>
-                {
-                    b.HasOne("IMDb.Models.Usuario", "Usuario")
-                        .WithMany()
-                        .HasForeignKey("UsuarioId");
-
-                    b.Navigation("Usuario");
                 });
 #pragma warning restore 612, 618
         }

@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
 using IMDb.Repositories;
+using Microsoft.OpenApi.Models;
 
 namespace IMDb
 {
@@ -51,12 +52,23 @@ namespace IMDb
                     Configuration.GetConnectionString("connectionString")
                 )
             );
+
             services.AddScoped<DataContext, DataContext>();
             services.AddScoped<UserRepository, UserRepository>();
             services.AddScoped<AdminRepository, AdminRepository>();
             services.AddScoped<MovieRepository, MovieRepository>();
 
-            services.AddSwaggerGen();
+            services.AddSwaggerGen(opt => {
+                opt.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme
+                {
+                    Name = "Bearer",
+                    Type = SecuritySchemeType.Http,
+                    In = ParameterLocation.Header,
+                    Description = "Specify the authorization token.",
+                    Scheme = "bearer",
+                    BearerFormat = "JWT"
+                });
+            });
 
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -92,8 +104,6 @@ namespace IMDb
             {
                 endpoints.MapControllers();
             });
-
-
         }
     }
 }
