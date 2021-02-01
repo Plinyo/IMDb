@@ -56,7 +56,7 @@ https://documenter.getpostman.com/view/2627280/TW6zG7Tn
 ### Swagger
 
 ```
-https://localhost:5001/swagger/
+http://localhost:5001/swagger/
 ```
 
 ### Pendências
