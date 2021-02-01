@@ -48,8 +48,7 @@ http://localhost:5001/v1/account/login
 
 Todos os testes foram realizados no postman, o swagger foi instalado, porém não foi configurado, até essa versão do código.
 
-Obs: Sempre utilizar schema HTTP quando for ler do docker e HTTPS caso esteja debugando do visual code
-
+Obs: Sempre utilizar schema HTTP quando for ler do docker
 ```
 https://documenter.getpostman.com/view/2627280/TW6zG7Tn
 ```
