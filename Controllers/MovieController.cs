@@ -11,9 +11,10 @@ namespace IMDb.Controllers
     {
         private readonly MovieRepository _movieRepository;
         private readonly AdminRepository _adminRepository;
-        public MovieController(MovieRepository movieRepository)
+        public MovieController(MovieRepository movieRepository, AdminRepository adminRepository)
         {
             _movieRepository = movieRepository;
+            _adminRepository = adminRepository;
         }
 
         [HttpGet]
