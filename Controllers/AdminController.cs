@@ -20,13 +20,13 @@ namespace IMDb.Controllers
         [HttpGet]
         [Route("GetAll")]
         [Authorize]
-        public ActionResult GetAllAdmin()
+        public ActionResult GetAllAdmin([FromQuery(Name = "page")] int page = 1, [FromQuery(Name = "qtdeReg")] int qtdeReg = 10)
         {
             if (_adminRepository.IsAdministrator(Request.Headers["Authorization"]) == false)
             {
                 return BadRequest("Administrador já cadastrado no sistema");
             }
-            return Ok(_adminRepository.GetAll());
+            return Ok(_adminRepository.GetAll(page, qtdeReg));
         }
 
         [HttpPost]
@@ -46,13 +46,13 @@ namespace IMDb.Controllers
         [HttpPost]
         [Authorize]
         [Route("Delete")]
-        public ActionResult DeleteAdministrador(int adminId)
+        public ActionResult DeleteAdministrador([FromQuery(Name = "id")] int id)
         {
             if (_adminRepository.IsAdministrator(Request.Headers["Authorization"]) == false)
             {
                 return BadRequest("Apenas administradores podem remover outros administradores no sistema");
             }
-            var admin = _adminRepository.GetById(adminId);            
+            var admin = _adminRepository.GetById(id);            
             admin.Ativo = false;
             _adminRepository.Update(admin);
             return Ok("Administrador inativado com sucesso.");

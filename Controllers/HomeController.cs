@@ -18,6 +18,23 @@ namespace IMDb.Controllers
             _userRepository = userRepository;
         }
 
+        /// <summary>
+        /// Autentica o usuario ao sistema.
+        /// </summary>      
+        /// <remarks>
+        /// Sample request:
+        ///     Exemplos de usuarios para começar a utilizar
+        ///     Usuario Administrador
+        ///     POST /login
+        ///       "NomeUsuario": "nick fury",
+        ///        "Senha": "shield"
+        ///     
+        ///     Usuario Comum
+        ///     POST /login
+        ///        "NomeUsuario": "tony stark",
+        ///        "Senha": "ironman"     
+        ///
+        /// </remarks>
         [HttpPost]
         [Route("login")]
         [AllowAnonymous]

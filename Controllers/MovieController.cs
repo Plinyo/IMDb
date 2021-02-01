@@ -25,18 +25,6 @@ namespace IMDb.Controllers
             return _movieRepository.GetAll(page, qtdeReg);
         }
 
-        // [HttpGet]
-        // [Route("GetAllComOrdenacao")]
-        // [Authorize]
-        // public IEnumerable<Filmes> GetAllMoviesComOrdenacao(   [FromQuery(Name = "diretor")] string diretor = null,
-        //                                                 [FromQuery(Name = "notas")] decimal notas = 10,
-        //                                                 [FromQuery(Name = "atores")] string atores = null,
-        //                                                 [FromQuery(Name = "diretor")] string diretor = null,
-        //                             )
-        // {
-        //     return _movieRepository.GetAll();
-        // }
-
         [HttpPost]
         [Authorize]
         [Route("Insert")]

@@ -45,8 +45,8 @@ namespace IMDb.Controllers
 
         [HttpPut]
         [Authorize]
-        [Route("Update/{id}")]
-        public ActionResult UpdateUsuario(int id, [FromBody] Usuario obj)
+        [Route("Update")]
+        public ActionResult UpdateUsuario([FromQuery(Name = "id")] int id, [FromBody] Usuario obj)
         {
             var user = _userRepository.GetById(id);
             JsonConvert.PopulateObject(obj.ToString(), user);
@@ -61,10 +61,14 @@ namespace IMDb.Controllers
 
         [HttpPost]
         [Authorize]
-        [Route("Delete/{id}")]
-        public ActionResult DeleteUsuario(int id)
+        [Route("Delete")]
+        public ActionResult DeleteUsuario([FromQuery(Name = "id")] int id)
         {
             var user = _userRepository.GetById(id);
+            if (user == null)
+            {
+                return BadRequest("Usuário não encontrado");
+            }
             user.Ativo = false;
             _userRepository.Update(user);
             return Ok("Deleção lógica concluida");

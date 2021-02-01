@@ -58,7 +58,9 @@ namespace IMDb
             services.AddScoped<AdminRepository, AdminRepository>();
             services.AddScoped<MovieRepository, MovieRepository>();
 
-            services.AddSwaggerGen(opt => {
+            services.AddSwaggerGen(opt =>
+            {
+                opt.SwaggerDoc("v1", new OpenApiInfo { Title = "API IMDb", Version = "v1" });
                 opt.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme
                 {
                     Name = "Bearer",

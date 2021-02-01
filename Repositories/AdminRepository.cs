@@ -21,22 +21,16 @@ namespace IMDb.Repositories
             return _context.Administrador.Where(x => x.UserId == id && x.Ativo == true).Any();
         }
 
-        public List<Administrador> GetAll()
+        public IEnumerable<Usuario> GetAll(int pagina = 1, int qtdeReg = 10)
         {
-            var lst = new List<Administrador>();
-            lst.Add(new Administrador { Id = 1, Ativo = true, UserId = 1 });
-            return lst;
-        }
-        // public IEnumerable<Usuario> GetAllAdmin(int pagina = 1, int qtdeReg = 10)
-        // {
-        //     var listAdmin = _context.Administrador.ToList();
-        //     var list = _context.Usuario.ToList<Usuario>().Any(x => x.Id == listAdmin.);
-        //     // if (qtdeReg > 10)
-        //     //     qtdeReg = 10;
+            var listAdmin = _context.Administrador.ToList();
+            var list = _context.Usuario.ToList<Usuario>().Where(x => listAdmin.Any(y => y.UserId == x.Id));
+            if (qtdeReg > 10)
+                qtdeReg = 10;
 
-        //     // var totalPaginas = (int)Math.Ceiling(list.Count() / Convert.ToDecimal(qtdeReg));
-        //      return list.OrderBy(x => x.NomeUsuario).Skip(qtdeReg * (pagina - 1)).Take(qtdeReg);
-        // }
+            var totalPaginas = (int)Math.Ceiling(list.Count() / Convert.ToDecimal(qtdeReg));
+            return list.OrderBy(x => x.NomeUsuario).Skip(qtdeReg * (pagina - 1)).Take(qtdeReg);
+        }
         public Administrador GetById(int id)
         {
             return _context.Administrador.Where(x => x.Id == id).FirstOrDefault();
@@ -51,7 +45,6 @@ namespace IMDb.Repositories
             _context.Administrador.Update(obj);
             _context.SaveChanges();
         }
-
         public bool IsAdministrator(string jwtToken)
         {
             var username = Helpers.ParseToken(jwtToken);
