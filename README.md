@@ -61,5 +61,4 @@ http://localhost:5001/swagger/
 
 ### Pendências
 
-- Autenticação no Swagger 
 - A função de filtros por diretor, nome, gênero e/ou atores também não foi implementada.
