@@ -62,3 +62,4 @@ http://localhost:5001/swagger/
 ### Pendências
 
 - A função de filtros por diretor, nome, gênero e/ou atores também não foi implementada.
+- Lembrete: criar tabelas para organizar atores, diretores e gêneros.
