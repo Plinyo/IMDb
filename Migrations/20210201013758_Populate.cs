@@ -31,12 +31,17 @@ namespace IMDb.Migrations
             migrationBuilder.InsertData(
                 table: "Filmes",
                 columns: new[] { "NomeFilme", "Genero", "Duracao", "Diretores", "Atores", "Avaliacao" },
-                values: new object[] { "Batman O cavaleiro das trevas", "Ação/Aventura", "2h 32m", "Christopher Nolan", "Christian Bale, Michael Caine, Heath Ledger", 4.9m });
+                values: new object[] { "Batman O cavaleiro das trevas", "Ação/Aventura", "2h 32m", "Christopher Nolan", "Christian Bale, Michael Caine, Heath Ledger", 2.9m });
 
             migrationBuilder.InsertData(
                 table: "Filmes",
                 columns: new[] { "NomeFilme", "Genero", "Duracao", "Diretores", "Atores", "Avaliacao" },
-                values: new object[] { "Esquadrão Suicidas", "Ação/Aventura", "2h 17m", "David Ayer", "Margot Robbie, Will Smith, Jared Leto", 3.9m });
+                values: new object[] { "Esquadrão Suicida", "Ação/Aventura", "2h 17m", "David Ayer", "Margot Robbie, Will Smith, Jared Leto", 3m });
+
+            migrationBuilder.InsertData(
+                table: "Filmes",
+                columns: new[] { "NomeFilme", "Genero", "Duracao", "Diretores", "Atores", "Avaliacao" },
+                values: new object[] { "Vingadores: Ultimato", "Ação/Ficção Científica", "3h 02m", "Joe Russo, Anthony Russo", "Chris Evans, Robert Downey Jr., Chris Hemsworth, Mark Ruffalo, Scarlett Johansson", 4m });
 
             migrationBuilder.InsertData(
             table: "Sistema",

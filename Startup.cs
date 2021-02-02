@@ -10,6 +10,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
 using IMDb.Repositories;
 using Microsoft.OpenApi.Models;
+using System.Collections.Generic;
+using System.IO;
 
 namespace IMDb
 {
@@ -60,18 +62,38 @@ namespace IMDb
 
             services.AddSwaggerGen(opt =>
             {
-                opt.SwaggerDoc("v1", new OpenApiInfo { Title = "API IMDb", Version = "v1" });
-                opt.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme
+                opt.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Name = "Bearer",
-                    Type = SecuritySchemeType.Http,
+                    Title = "API IMDb",
+                    Version = "v1",
+                    Description = "Projeto de API para teste.",
+                    Contact = new OpenApiContact()
+                    {
+                        Name = "Plínyo Marcos",
+                        Email = "plinyo.silva22@gmail.com"
+                    }
+                });
+                opt.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = "Autorização JWT usando o esquema Bearer.",
+                    Name = "Authorization",
                     In = ParameterLocation.Header,
-                    Description = "Specify the authorization token.",
                     Scheme = "bearer",
+                    Type = SecuritySchemeType.Http,
                     BearerFormat = "JWT"
                 });
+                opt.AddSecurityRequirement(new OpenApiSecurityRequirement
+                    {
+                        {
+                            new OpenApiSecurityScheme
+                            {
+                                Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" }
+                            },
+                            new List<string>()
+                        }
+                    });
+                opt.EnableAnnotations();
             });
-
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -104,7 +126,8 @@ namespace IMDb
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllerRoute(name: "default",
+                pattern: "{controller=Home}");
             });
         }
     }

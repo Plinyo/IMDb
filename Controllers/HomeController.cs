@@ -3,9 +3,8 @@ using IMDb.Models;
 using Microsoft.AspNetCore.Authorization;
 using IMDb.Repositories;
 using IMDb.Services;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace IMDb.Controllers
 {
@@ -18,26 +17,13 @@ namespace IMDb.Controllers
             _userRepository = userRepository;
         }
 
-        /// <summary>
-        /// Autentica o usuario ao sistema.
-        /// </summary>      
-        /// <remarks>
-        /// Sample request:
-        ///     Exemplos de usuarios para começar a utilizar
-        ///     Usuario Administrador
-        ///     POST /login
-        ///       "NomeUsuario": "nick fury",
-        ///        "Senha": "shield"
-        ///     
-        ///     Usuario Comum
-        ///     POST /login
-        ///        "NomeUsuario": "tony stark",
-        ///        "Senha": "ironman"     
-        ///
-        /// </remarks>
         [HttpPost]
         [Route("login")]
         [AllowAnonymous]
+        [SwaggerOperation(
+            Summary = "Login do sistema",
+            Description = "Para logar é necessário somente o NomeUsuario e Senha. Dica: nick fury é o admin "
+        )]
         public async Task<ActionResult<dynamic>> Authenticate([FromBody] Usuario model)
         {
             var userBR = _userRepository;
